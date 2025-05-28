@@ -3,223 +3,156 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AI Chatbot Demo for Business</title>
+  <title>AI Chatbox</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 0; padding: 0;
-      background: #f7f9fc;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f4f4;
     }
-    header {
-      background-color: #4A90E2;
-      color: white;
-      padding: 2rem;
-      text-align: center;
-    }
-    header h1 {
-      margin: 0 0 0.5rem 0;
-    }
-    main {
-      flex: 1;
-      max-width: 900px;
-      margin: 2rem auto 4rem;
-      padding: 0 1rem;
-    }
-    section {
-      margin-bottom: 2rem;
-    }
-    h2 {
-      color: #4A90E2;
-      margin-bottom: 1rem;
-    }
-    p {
-      line-height: 1.5;
-    }
-    #ai-chat-widget {
+
+    /* Chatbox Container */
+    .chatbox {
       position: fixed;
       bottom: 30px;
       right: 30px;
       width: 320px;
-      max-height: 420px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      background: white;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-      font-family: Arial, sans-serif;
+      max-height: 500px;
+      background-color: #fff;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      z-index: 9999;
+      z-index: 1000;
     }
-    #chat-header {
+
+    .chatbox-header {
       background-color: #4A90E2;
       color: white;
-      padding: 12px;
+      padding: 16px;
       font-weight: bold;
+      font-size: 16px;
       text-align: center;
     }
-    #chat-messages {
+
+    .chatbox-messages {
       flex: 1;
-      padding: 10px;
+      padding: 12px;
       overflow-y: auto;
-      font-size: 14px;
+      background-color: #fafafa;
     }
-    .chat-message {
-      margin-bottom: 12px;
+
+    .message {
+      margin: 10px 0;
+      max-width: 80%;
     }
-    .chat-message.user {
+
+    .message.bot {
+      text-align: left;
+    }
+
+    .message.user {
       text-align: right;
     }
-    .chat-message.user > div {
-      background: #4A90E2;
-      color: white;
+
+    .message-content {
       display: inline-block;
-      padding: 8px 12px;
-      border-radius: 15px 15px 0 15px;
-    }
-    .chat-message.bot > div {
-      background: #e5e5ea;
-      color: black;
-      display: inline-block;
-      padding: 8px 12px;
-      border-radius: 15px 15px 15px 0;
-    }
-    #chat-input-container {
-      padding: 10px;
-      border-top: 1px solid #ddd;
-      display: flex;
-    }
-    #chat-input {
-      flex: 1;
-      padding: 8px 12px;
-      border: 1px solid #ccc;
-      border-radius: 20px;
+      padding: 10px 14px;
+      border-radius: 18px;
       font-size: 14px;
     }
-    #chat-send-btn {
-      margin-left: 8px;
+
+    .message.bot .message-content {
+      background-color: #e0e0e0;
+      color: #000;
+      border-radius: 18px 18px 18px 4px;
+    }
+
+    .message.user .message-content {
+      background-color: #4A90E2;
+      color: #fff;
+      border-radius: 18px 18px 4px 18px;
+    }
+
+    .chatbox-input {
+      display: flex;
+      border-top: 1px solid #ddd;
+      background: #fff;
+      padding: 8px;
+    }
+
+    .chatbox-input input {
+      flex: 1;
+      border: none;
+      padding: 10px 12px;
+      font-size: 14px;
+      border-radius: 20px;
+      background-color: #f0f0f0;
+      outline: none;
+    }
+
+    .chatbox-input button {
       background-color: #4A90E2;
       color: white;
       border: none;
+      padding: 10px 16px;
+      margin-left: 8px;
       border-radius: 20px;
-      padding: 8px 16px;
       cursor: pointer;
+      font-weight: bold;
     }
-    #chat-send-btn:disabled {
-      background-color: #a0bff6;
+
+    .chatbox-input button:disabled {
+      background-color: #9bbcf0;
       cursor: not-allowed;
-    }
-    footer {
-      text-align: center;
-      padding: 1rem;
-      color: #666;
-      font-size: 0.9rem;
-      border-top: 1px solid #ddd;
-      margin-top: auto;
-      background: #fafafa;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>AI Chatbot Demo for Business Owners</h1>
-    <p>See how AI can improve customer support and boost sales by answering questions instantly.</p>
-  </header>
-  <main>
-    <section>
-      <h2>About This Chatbot</h2>
-      <p>This AI-powered chatbot is connected to an intelligent backend that adapts to your website's information and answers customer questions in real time.</p>
-      <p>It's powered by OpenAI’s GPT API and runs through an n8n workflow that processes queries, ensuring personalized, accurate responses.</p>
-    </section>
-    <section>
-      <h2>Try It Out!</h2>
-      <p>Use the chat window in the bottom right corner to ask any question related to our demo business.</p>
-      <p>Example questions:</p>
-      <ul>
-        <li>What are your business hours?</li>
-        <li>Do you offer refunds?</li>
-        <li>Can you tell me about your product warranty?</li>
-      </ul>
-    </section>
-  </main>
 
-  <!-- Chat Widget -->
-  <div id="ai-chat-widget" aria-label="AI Chatbot">
-    <div id="chat-header">Help Desk</div>
-    <div id="chat-messages" role="log" aria-live="polite"></div>
-    <form id="chat-form">
-      <div id="chat-input-container">
-        <input id="chat-input" type="text" placeholder="Ask me anything..." autocomplete="off" required />
-        <button id="chat-send-btn" type="submit">Send</button>
-      </div>
+  <!-- Chatbox -->
+  <div class="chatbox" id="chatbox">
+    <div class="chatbox-header">AI Chatbot</div>
+    <div class="chatbox-messages" id="chat-messages">
+      <!-- Messages appear here -->
+    </div>
+    <form class="chatbox-input" id="chat-form">
+      <input type="text" id="chat-input" placeholder="Type your message..." required />
+      <button type="submit">Send</button>
     </form>
   </div>
 
   <script>
-    (() => {
-      const widget = document.getElementById('ai-chat-widget');
-      const messages = document.getElementById('chat-messages');
-      const form = document.getElementById('chat-form');
-      const input = document.getElementById('chat-input');
-      const sendBtn = document.getElementById('chat-send-btn');
+    const chatForm = document.getElementById("chat-form");
+    const chatInput = document.getElementById("chat-input");
+    const chatMessages = document.getElementById("chat-messages");
 
-      // === REPLACE this with your actual n8n webhook URL ===
-      const N8N_WEBHOOK_URL = 'https://YOUR_N8N_INSTANCE_URL/webhook/adaptive-ai-chatbot-http';
+    chatForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const userText = chatInput.value.trim();
+      if (!userText) return;
 
-      // Customize your website context info here:
-      const WEBSITE_CONTEXT = "Our demo company offers 24/7 support, 30-day returns, and a warranty on all products.";
+      appendMessage(userText, "user");
+      chatInput.value = "";
 
-      function appendMessage(text, sender = 'bot') {
-        const msgDiv = document.createElement('div');
-        msgDiv.classList.add('chat-message', sender);
-        const innerDiv = document.createElement('div');
-        innerDiv.textContent = text;
-        msgDiv.appendChild(innerDiv);
-        messages.appendChild(msgDiv);
-        messages.scrollTop = messages.scrollHeight;
-      }
+      // Simulate bot response (replace this with your actual AI backend)
+      appendMessage("Let me get that info for you...", "bot");
 
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const userText = input.value.trim();
-        if (!userText) return;
-        appendMessage(userText, 'user');
-        input.value = '';
-        sendBtn.disabled = true;
+      // Example delay
+      setTimeout(() => {
+        appendMessage("Here's a smart response powered by AI 👋", "bot");
+      }, 1000);
+    });
 
-        try {
-          const res = await fetch(N8N_WEBHOOK_URL, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-              message: userText,
-              websiteData: WEBSITE_CONTEXT
-            })
-          });
-
-          if (!res.ok) throw new Error('Network error');
-
-          const json = await res.json();
-          if (json.answer) {
-            appendMessage(json.answer, 'bot');
-          } else {
-            appendMessage('Sorry, I did not get a response.', 'bot');
-          }
-        } catch (err) {
-          appendMessage('Error: ' + err.message, 'bot');
-        } finally {
-          sendBtn.disabled = false;
-        }
-      });
-    })();
+    function appendMessage(text, sender) {
+      const msg = document.createElement("div");
+      msg.classList.add("message", sender);
+      msg.innerHTML = `<div class="message-content">${text}</div>`;
+      chatMessages.appendChild(msg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
   </script>
 
-  <footer>
-    Demo site built with AI chatbot by [Your Name or Company]
-  </footer>
 </body>
 </html>
